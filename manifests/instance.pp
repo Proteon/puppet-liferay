@@ -39,9 +39,10 @@ define liferay::instance ($instance = $name, $version = 'LATEST', $jndi_database
         tomcat::instance { $instance: }
     }
 
-    property { $instance:
-        key   => 'jdbc.default.jndi.name',
-        value => $jndi_database,
+    liferay::property { 'jdbc.default.jndi.name':
+        instance => $instance,
+        key      => 'jdbc.default.jndi.name',
+        value    => $jndi_database,
     }
 
     if (!defined(Tomcat::Jndi::Resource[$jndi_database])) {
@@ -56,5 +57,11 @@ define liferay::instance ($instance = $name, $version = 'LATEST', $jndi_database
         groupid    => 'com.liferay.portal',
         artifactid => 'portal-web',
         version    => $version,
+    }
+
+    file { "${tomcat::params::home}/${instance}/deploy":
+        ensure => directory,
+        owner  => $instance,
+        group  => $instance,
     }
 }

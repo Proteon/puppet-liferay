@@ -2,7 +2,7 @@
 #
 # === Parameters
 #
-# [*instance*]  The instance this plugin should be installed in (see liferay::instance). 
+# [*instance*]  The instance this plugin should be installed in (see liferay::instance).
 # [*source*] The source of the file to install (.war).
 # [*target*] The target of the file to install (.war), defaults to $name.
 #
@@ -32,7 +32,7 @@
 #
 define liferay::plugin ($instance, $source, $target = $name) {
     include ::tomcat
-    
+
     if (!defined(File["${tomcat::params::home}/${instance}/.plugins"])) {
         file { "${tomcat::params::home}/${instance}/.plugins":
             ensure => directory,
@@ -42,10 +42,11 @@ define liferay::plugin ($instance, $source, $target = $name) {
     }
 
     file { "${tomcat::params::home}/${instance}/.plugins/${target}.war":
-        source => $source,
-        owner  => 'root',
-        group  => 'root',
-        notify => Exec["${tomcat::params::home}/${instance}/deploy/${target}.war"],
+        source  => $source,
+        owner   => 'root',
+        group   => 'root',
+        notify  => Exec["${tomcat::params::home}/${instance}/deploy/${target}.war"],
+        require => Liferay::Instance[$instance],
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.war":

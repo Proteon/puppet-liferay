@@ -48,7 +48,7 @@ define liferay::plugin::maven ($instance, $groupid, $artifactid, $version) {
         artifactid => $artifactid,
         version    => $version,
         packaging  => 'war',
-        require    => [Liferay::Instance[$instance], Package['maven'], File["${tomcat::params::home}/${instance}/.plugins"]],
+        require    => [Liferay::Instance[$instance], Package['maven'], File["${tomcat::params::home}/${instance}/.plugins"],],
         notify     => Exec["${tomcat::params::home}/${instance}/deploy/${artifactid}-${version}.war"],
     }
 
