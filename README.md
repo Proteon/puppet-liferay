@@ -64,6 +64,8 @@ Add a portal property (portal-ext.properties)
         value    => 'jdbc/test',
     }
 
+Add a system property (system-ext.properties)
+
     liferay::property { 'test_portal_3.user.country':
       instance => 'test_portal_3',
       key      => 'user.country',
