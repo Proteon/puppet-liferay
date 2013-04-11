@@ -1,0 +1,37 @@
+{
+  "name": "proteon-liferay",
+  "author": "Proteon",
+  "description": "Puppet code for deploying and configuring Liferay in Tomcat",
+  "license": "Apache License, Version 2.0",
+  "project_page": "https://github.com/Proteon/puppet-liferay",
+  "source": "git@github.com:Proteon/puppet-liferay.git",
+  "summary": "Puppet code for deploying and configuring Liferay in Tomcat",
+  "version": "0.1.0",
+  "checksums": {
+    "Modulefile": "67b05cce9fd275d92f4b4feb0cbf7ab7",
+    "README.md": "9f812a2603527f4e31191b7d31b80291",
+    "manifests/init.pp": "8a65978d9a0f56399b4955c10dacdbdf",
+    "manifests/instance.pp": "3be980cd52178446720de04e4c178326",
+    "manifests/instance/dependencies.pp": "88080c4c47d75ad584e6a2cca1f6c081",
+    "manifests/instance/properties.pp": "5ca71912de427383cfa4c001f62ca60c",
+    "manifests/plugin.pp": "16db62f6c942735835cee809bfd73174",
+    "manifests/plugin/maven.pp": "181f8e7f0025e5e5731f49ea8674e37e",
+    "manifests/property.pp": "a4c88d6fea99bd348f15821475851c3a",
+    "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+    "tests/init.pp": "7dbd5c65bb9ae1eee6a57ec17ae12238"
+  },
+  "dependencies": [
+    {
+      "name": "proteon/tomcat",
+      "version_requirement": "\u003e\u003d0.1.2"
+    },
+    {
+      "name": "ripienaar/concat",
+      "version_requirement": "\u003e\u003d0.2.0"
+    },
+    {
+      "name": "proteon/maven",
+      "version_requirement": "\u003e\u003d1.0.1"
+    }
+  ]
+}
