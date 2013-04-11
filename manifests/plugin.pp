@@ -10,18 +10,6 @@
 #
 # === Examples
 #
-# This will install the marketplace plugin in a an instance named liferay_com.
-# liferay::instance { 'liferay_com':
-#
-#   version     => '6.1.1',
-#}
-#
-# This will install the latest available Liferay CE in a tomcat instance called tomcat_1.
-# liferay::instance { 'liferay_com':
-#   instance    => 'tomcat_1',
-#   version     => 'LATEST',
-#}
-#
 # === Authors
 #
 # Sander Bilo <sander@proteon.nl>
@@ -50,7 +38,7 @@ define liferay::plugin ($instance, $source, $target = $name) {
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.war":
-        command     => "sudo -u ${instance} cp .plugins/${target}.war deploy/",
+        command     => "sudo -u ${instance} cp ~/.plugins/${target}.war ~/deploy/",
         refreshonly => true,
     }
 }
