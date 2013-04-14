@@ -1,5 +1,8 @@
 # == Class: liferay
 #
+# Due to use sun proprietary code liferay on openjdk is not recommended, proteon/java module provides a way to include sun java in
+# the process.
+#
 # === Parameters
 #
 # === Variables
@@ -15,5 +18,5 @@
 # Copyright 2013 Proteon.
 #
 class liferay {
-    
+    include java
 }

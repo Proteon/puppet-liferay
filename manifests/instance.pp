@@ -31,6 +31,7 @@
 # Copyright 2013 Proteon.
 #
 define liferay::instance ($instance = $name, $version = 'LATEST', $jndi_database = 'jdbc/LiferayPool') {
+    include tomcat
     liferay::instance::properties { $name: }
 
     liferay::instance::dependencies { $name: version => $version }
@@ -39,20 +40,22 @@ define liferay::instance ($instance = $name, $version = 'LATEST', $jndi_database
         tomcat::instance { $instance: }
     }
 
-    liferay::property { 'jdbc.default.jndi.name':
+    liferay::property { "${instance}:jdbc.default.jndi.name":
         instance => $instance,
         key      => 'jdbc.default.jndi.name',
         value    => $jndi_database,
     }
 
-    if (!defined(Tomcat::Jndi::Resource[$jndi_database])) {
-        tomcat::jndi::database::hsql { $jndi_database:
-            instance => $instance,
-            url      => 'jdbc:hsqldb:data/hsql/lportal',
+    if (!defined(Tomcat::Jndi::Resource[$instance])) {
+        tomcat::jndi::database::hsql { $instance:
+            resource_name   => $jndi_database,
+            instance        => $instance,
+            url             => 'jdbc:hsqldb:data/hsql/lportal',
         }
     }
 
-    tomcat::webapp::maven { 'ROOT':
+    tomcat::webapp::maven { "${instance}:ROOT":
+        webapp     => 'ROOT',
         instance   => $instance,
         groupid    => 'com.liferay.portal',
         artifactid => 'portal-web',

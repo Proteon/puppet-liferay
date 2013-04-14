@@ -6,13 +6,17 @@
   "project_page": "https://github.com/Proteon/puppet-liferay",
   "source": "git@github.com:Proteon/puppet-liferay.git",
   "summary": "Puppet code for deploying and configuring Liferay in Tomcat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "checksums": {
-    "Modulefile": "67b05cce9fd275d92f4b4feb0cbf7ab7",
-    "README.md": "00973109af561735ca4a1b6032aa4e59",
-    "manifests/init.pp": "8a65978d9a0f56399b4955c10dacdbdf",
-    "manifests/instance.pp": "16f489ec4e47f9851193bd6a45143607",
-    "manifests/instance/dependencies.pp": "88080c4c47d75ad584e6a2cca1f6c081",
+    "Modulefile": "2d49966b0de3bd14ff3d912f67c83a3b",
+    "README.md": "75cf654a72973dd0d05c2e28a6a572af",
+    "manifests/cluster.pp": "9568a7744887bbced6edb0999feb61be",
+    "manifests/cluster/cache.pp": "cc2ad2064b604eda5b8b36285647bf9f",
+    "manifests/cluster/jgroups.pp": "a4f8774c2e51a2ed35f2ee9f6f70b0b6",
+    "manifests/cluster/lucene.pp": "0d87dece1c3140824b8b0d9cc85f257b",
+    "manifests/init.pp": "6765531c7abdcd72ff2617306bbede53",
+    "manifests/instance.pp": "922e7eb134c6857b93ef68a07005f2bf",
+    "manifests/instance/dependencies.pp": "816d3e6105c93b3a36b335a97cbcf7d1",
     "manifests/instance/properties.pp": "5ca71912de427383cfa4c001f62ca60c",
     "manifests/plugin.pp": "c65b67db149bc6c8fb7c94cd3b75d787",
     "manifests/plugin/maven.pp": "2f3c92eaf86c43a722f7c1bf2c27383a",
@@ -32,6 +36,10 @@
     {
       "name": "proteon/maven",
       "version_requirement": "\u003e\u003d1.0.1"
+    },
+    {
+      "name": "proteon/java",
+      "version_requirement": "\u003e\u003d0.1.4"
     }
   ]
 }

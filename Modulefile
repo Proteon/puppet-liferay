@@ -1,5 +1,5 @@
 name 'proteon-liferay'
-version '0.1.0'
+version '0.1.1'
 
 author 'Proteon'
 license 'Apache License, Version 2.0'
@@ -10,3 +10,4 @@ description 'Puppet code for deploying and configuring Liferay in Tomcat'
 dependency 'proteon/tomcat', '>=0.1.2'
 dependency 'ripienaar/concat', '>=0.2.0'
 dependency 'proteon/maven', '>=1.0.1'
+dependency 'proteon/java', '>=0.1.4'
