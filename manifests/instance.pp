@@ -35,6 +35,7 @@ define liferay::instance (
     $version           = 'LATEST',
     $jndi_database     = 'jdbc/LiferayPool',
 ) {
+    include java
     include tomcat
 
     liferay::instance::properties { $name: }
