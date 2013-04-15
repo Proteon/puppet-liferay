@@ -47,11 +47,6 @@ define liferay::instance (
 
     if (!defined(Tomcat::Instance[$instance])) {
         tomcat::instance { $instance: }
-
-        liferay::property { 'portal.instance.http.port':
-            key      => 'portal.instance.http.port',
-            value    => 8080,
-        }
     }
 
     liferay::property { "${instance}:jdbc.default.jndi.name":
