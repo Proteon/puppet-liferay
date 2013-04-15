@@ -41,7 +41,7 @@ define liferay::plugin::maven ($instance, $groupid, $artifactid, $version) {
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}-${version}.war":
-        command     => "sudo -u ${instance} cp ~/.plugins/${artifactid}-${version}.war ~/deploy/",
+        command     => "sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}-${version}.war ${tomcat::params::home}/${instance}/deploy/",
         refreshonly => true,
     }
 }

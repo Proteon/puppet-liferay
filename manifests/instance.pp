@@ -30,27 +30,45 @@
 #
 # Copyright 2013 Proteon.
 #
-define liferay::instance ($instance = $name, $version = 'LATEST', $jndi_database = 'jdbc/LiferayPool') {
+define liferay::instance (
+    $instance          = $name,
+    $version           = 'LATEST',
+    $jndi_database     = 'jdbc/LiferayPool',
+) {
     include tomcat
+
     liferay::instance::properties { $name: }
 
     liferay::instance::dependencies { $name: version => $version }
+    
+    Liferay::Property {
+        instance => $instance,
+    }
 
     if (!defined(Tomcat::Instance[$instance])) {
         tomcat::instance { $instance: }
+
+        liferay::property { 'portal.instance.http.port':
+            key      => 'portal.instance.http.port',
+            value    => 8080,
+        }
     }
 
     liferay::property { "${instance}:jdbc.default.jndi.name":
-        instance => $instance,
         key      => 'jdbc.default.jndi.name',
         value    => $jndi_database,
     }
 
+    liferay::property { 'jdbc.default.liferay.pool.provider':
+        key      => 'jdbc.default.liferay.pool.provider',
+        value    => 'tomcat',
+    }
+
     if (!defined(Tomcat::Jndi::Resource[$instance])) {
         tomcat::jndi::database::hsql { $instance:
-            resource_name   => $jndi_database,
-            instance        => $instance,
-            url             => 'jdbc:hsqldb:data/hsql/lportal',
+            resource_name => $jndi_database,
+            instance      => $instance,
+            url           => 'jdbc:hsqldb:data/hsql/lportal',
         }
     }
 

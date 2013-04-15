@@ -9,6 +9,8 @@
 # Copyright 2013 Proteon.
 #
 define liferay::property ($instance, $type = 'portal', $key, $value) {
+    include tomcat
+
     concat::fragment { "${name}: ${key}=${value}":
         target  => "${tomcat::params::home}/${instance}/tomcat/lib/${type}-ext.properties",
         order   => 01,

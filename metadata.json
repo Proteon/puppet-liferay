@@ -8,26 +8,26 @@
   "summary": "Puppet code for deploying and configuring Liferay in Tomcat",
   "version": "0.1.1",
   "checksums": {
-    "Modulefile": "2d49966b0de3bd14ff3d912f67c83a3b",
+    "Modulefile": "22b81545dbc64fe4d7fbb1879c31816b",
     "README.md": "75cf654a72973dd0d05c2e28a6a572af",
     "manifests/cluster.pp": "9568a7744887bbced6edb0999feb61be",
     "manifests/cluster/cache.pp": "cc2ad2064b604eda5b8b36285647bf9f",
     "manifests/cluster/jgroups.pp": "a4f8774c2e51a2ed35f2ee9f6f70b0b6",
     "manifests/cluster/lucene.pp": "0d87dece1c3140824b8b0d9cc85f257b",
     "manifests/init.pp": "6765531c7abdcd72ff2617306bbede53",
-    "manifests/instance.pp": "922e7eb134c6857b93ef68a07005f2bf",
+    "manifests/instance.pp": "0f707d1e55cc909a824e2be0fae6ae4e",
     "manifests/instance/dependencies.pp": "816d3e6105c93b3a36b335a97cbcf7d1",
     "manifests/instance/properties.pp": "5ca71912de427383cfa4c001f62ca60c",
     "manifests/plugin.pp": "c65b67db149bc6c8fb7c94cd3b75d787",
-    "manifests/plugin/maven.pp": "2f3c92eaf86c43a722f7c1bf2c27383a",
-    "manifests/property.pp": "0919a56cfadb6ce3998418a4966df6dc",
+    "manifests/plugin/maven.pp": "02b175cb589ea018b0f1c39abb85c441",
+    "manifests/property.pp": "e1f1f567598f1f2ff016123c88e12139",
     "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
     "tests/init.pp": "7dbd5c65bb9ae1eee6a57ec17ae12238"
   },
   "dependencies": [
     {
       "name": "proteon/tomcat",
-      "version_requirement": "\u003e\u003d0.1.2"
+      "version_requirement": "\u003e\u003d0.1.5"
     },
     {
       "name": "ripienaar/concat",
