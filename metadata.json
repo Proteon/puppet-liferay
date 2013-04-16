@@ -16,7 +16,7 @@
     "manifests/cluster/lucene.pp": "0d87dece1c3140824b8b0d9cc85f257b",
     "manifests/init.pp": "6765531c7abdcd72ff2617306bbede53",
     "manifests/instance.pp": "8c38e96eee5ae154df71280dce0b8128",
-    "manifests/instance/dependencies.pp": "816d3e6105c93b3a36b335a97cbcf7d1",
+    "manifests/instance/dependencies.pp": "7ac5cde0ac10e6ee87c3042b07927c21",
     "manifests/instance/properties.pp": "5ca71912de427383cfa4c001f62ca60c",
     "manifests/plugin.pp": "10bb7660c25760929f42fa427c6aac24",
     "manifests/plugin/maven.pp": "02b175cb589ea018b0f1c39abb85c441",
