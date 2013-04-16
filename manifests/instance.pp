@@ -1,4 +1,8 @@
 # == Resource: liferay::instance
+# 
+# Note: the first time the instance is created, if you use the (default) JNDI connection,
+# and version 6.1.1, some error messages will be displayed in the log. 
+# This is a known bug: http://issues.liferay.com/browse/LPS-29672
 #
 # === Parameters
 #

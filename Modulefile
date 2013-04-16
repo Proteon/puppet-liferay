@@ -4,7 +4,7 @@ version '0.1.1'
 author 'Proteon'
 license 'Apache License, Version 2.0'
 project_page 'https://github.com/Proteon/puppet-liferay'
-source 'git@github.com:Proteon/puppet-liferay.git'
+source 'http://github.com/Proteon/puppet-liferay.git'
 summary 'Puppet code for deploying and configuring Liferay in Tomcat'
 description 'Puppet code for deploying and configuring Liferay in Tomcat'
 
