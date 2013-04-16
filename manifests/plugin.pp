@@ -38,7 +38,7 @@ define liferay::plugin ($instance, $source, $target = $name) {
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.war":
-        command     => "sudo -u ${instance} cp ~/.plugins/${target}.war ~/deploy/",
+        command     => "sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${target}.war ${tomcat::params::home}/${instance}/deploy/",
         refreshonly => true,
     }
 }
