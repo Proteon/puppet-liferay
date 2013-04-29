@@ -8,25 +8,15 @@
   "summary": "Puppet code for deploying and configuring Liferay in Tomcat",
   "version": "0.1.1",
   "checksums": {
-<<<<<<< HEAD
     "Modulefile": "992c66bddf2be47d4b89d8ec31505e07",
-    "README.md": "75cf654a72973dd0d05c2e28a6a572af",
-=======
-    "Modulefile": "76dafe50f8abc9081ecf7c6f8066b615",
     "README.md": "c50e320a44f7888ee84f2f3916d11a60",
->>>>>>> Changing requires and adding version pinning warning
     "manifests/cluster.pp": "9568a7744887bbced6edb0999feb61be",
     "manifests/cluster/cache.pp": "cc2ad2064b604eda5b8b36285647bf9f",
     "manifests/cluster/jgroups.pp": "a4f8774c2e51a2ed35f2ee9f6f70b0b6",
     "manifests/cluster/lucene.pp": "0d87dece1c3140824b8b0d9cc85f257b",
     "manifests/init.pp": "6765531c7abdcd72ff2617306bbede53",
-<<<<<<< HEAD
-    "manifests/instance.pp": "d2a736bb528c4a7d9ba34059c93f80d4",
-    "manifests/instance/dependencies.pp": "7ac5cde0ac10e6ee87c3042b07927c21",
-=======
-    "manifests/instance.pp": "41c37c243c1bc95038ff0efa4c4e2ce6",
+    "manifests/instance.pp": "87f912a35fbe0ac3e41c41626abc3e67",
     "manifests/instance/dependencies.pp": "98061599053dc954d5a216a10a2bf1cf",
->>>>>>> Changing requires and adding version pinning warning
     "manifests/instance/properties.pp": "5ca71912de427383cfa4c001f62ca60c",
     "manifests/plugin.pp": "73725c508de7fa2f57071aecc3784529",
     "manifests/plugin/maven.pp": "02b175cb589ea018b0f1c39abb85c441",
