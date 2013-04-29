@@ -17,7 +17,7 @@ define liferay::instance::properties ($instance = $name) {
         "${tomcat::params::home}/${instance}/tomcat/lib/portlet-ext.properties",]:
         owner => $instance,
         group => $instance,
-        require => Tomcat::Instance[$instance],
+        require => File["${tomcat::params::home}/${instance}/tomcat/lib"],
     }
 
     concat::fragment { "${instance} portal-ext.properties header":

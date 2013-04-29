@@ -1,7 +1,7 @@
 # == Resource: liferay::instance
-# 
+#
 # Note: the first time the instance is created, if you use the (default) JNDI connection,
-# and version 6.1.1, some error messages will be displayed in the log. 
+# and version 6.1.1, some error messages will be displayed in the log.
 # This is a known bug: http://issues.liferay.com/browse/LPS-29672
 #
 # === Parameters
@@ -35,41 +35,39 @@
 # Copyright 2013 Proteon.
 #
 define liferay::instance (
-    $instance          = $name,
-    $version           = 'LATEST',
-    $jndi_database     = 'jdbc/LiferayPool',
-) {
+    $instance      = $name,
+    $version       = 'LATEST',
+    $jndi_database = 'jdbc/LiferayPool',) {
     include java
     include tomcat
 
-    if($version == 'LATEST') {
+    if ($version == 'LATEST') {
         warning('Using \'LATEST\' as version for Liferay may have unwanted consequences, please specify a version number')
     }
 
     liferay::instance::properties { $name: }
 
-    liferay::instance::dependencies { $name: version => $version }
+    liferay::instance::dependencies { $name: version => $version, }
 
     Liferay::Property {
-        instance => $instance,
-    }
+        instance => $instance, }
 
     if (!defined(Tomcat::Instance[$instance])) {
         tomcat::instance { $instance: }
     }
 
     liferay::property { "${instance}:jdbc.default.jndi.name":
-        key      => 'jdbc.default.jndi.name',
-        value    => $jndi_database,
+        key   => 'jdbc.default.jndi.name',
+        value => $jndi_database,
     }
 
     liferay::property { "${instance}:jdbc.default.liferay.pool.provider":
-        key      => 'jdbc.default.liferay.pool.provider',
-        value    => 'tomcat',
+        key   => 'jdbc.default.liferay.pool.provider',
+        value => 'tomcat',
     }
 
     if (!defined(Tomcat::Jndi::Resource["${instance}:${jndi_database}"])) {
-        tomcat::jndi::database::hsql {"${instance}-${jndi_database}":
+        tomcat::jndi::database::hsql { "${instance}-${jndi_database}":
             resource_name => $jndi_database,
             instance      => $instance,
             url           => 'jdbc:hsqldb:data/hsql/lportal',
