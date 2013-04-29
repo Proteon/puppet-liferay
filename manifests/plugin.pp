@@ -18,8 +18,11 @@
 #
 # Copyright 2013 Proteon.
 #
-define liferay::plugin ($instance, $source, $target = $name) {
-    include ::tomcat
+define liferay::plugin (
+    $instance,
+    $source,
+    $target = $name) {
+    include tomcat
 
     if (!defined(File["${tomcat::params::home}/${instance}/.plugins"])) {
         file { "${tomcat::params::home}/${instance}/.plugins":
@@ -30,11 +33,10 @@ define liferay::plugin ($instance, $source, $target = $name) {
     }
 
     file { "${tomcat::params::home}/${instance}/.plugins/${target}.war":
-        source  => $source,
-        owner   => 'root',
-        group   => 'root',
-        notify  => Exec["${tomcat::params::home}/${instance}/deploy/${target}.war"],
-        require => Liferay::Instance[$instance],
+        source => $source,
+        owner  => 'root',
+        group  => 'root',
+        notify => Exec["${tomcat::params::home}/${instance}/deploy/${target}.war"],
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.war":

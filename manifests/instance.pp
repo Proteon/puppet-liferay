@@ -42,10 +42,14 @@ define liferay::instance (
     include java
     include tomcat
 
+    if($version == 'LATEST') {
+        warning('Using \'LATEST\' as version for Liferay may have unwanted consequences, please specify a version number')
+    }
+
     liferay::instance::properties { $name: }
 
     liferay::instance::dependencies { $name: version => $version }
-    
+
     Liferay::Property {
         instance => $instance,
     }
@@ -59,13 +63,13 @@ define liferay::instance (
         value    => $jndi_database,
     }
 
-    liferay::property { 'jdbc.default.liferay.pool.provider':
+    liferay::property { "${instance}:jdbc.default.liferay.pool.provider":
         key      => 'jdbc.default.liferay.pool.provider',
         value    => 'tomcat',
     }
 
-    if (!defined(Tomcat::Jndi::Resource[$instance])) {
-        tomcat::jndi::database::hsql { $instance:
+    if (!defined(Tomcat::Jndi::Resource["${instance}:${jndi_database}"])) {
+        tomcat::jndi::database::hsql {"${instance}-${jndi_database}":
             resource_name => $jndi_database,
             instance      => $instance,
             url           => 'jdbc:hsqldb:data/hsql/lportal',
