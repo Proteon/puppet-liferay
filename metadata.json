@@ -18,7 +18,7 @@
     "manifests/instance.pp": "37a514b32b24f85c4bb34b0e3b12aa42",
     "manifests/instance/dependencies.pp": "98061599053dc954d5a216a10a2bf1cf",
     "manifests/instance/properties.pp": "31697d548fccd0177123815fe55fad21",
-    "manifests/plugin.pp": "73725c508de7fa2f57071aecc3784529",
+    "manifests/plugin.pp": "a08480f7f7ffc17a1134def5999556b2",
     "manifests/plugin/maven.pp": "02b175cb589ea018b0f1c39abb85c441",
     "manifests/property.pp": "2591b4e4079281ab70277b78034dd1f7",
     "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
