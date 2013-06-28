@@ -82,4 +82,10 @@ define liferay::instance (
         owner  => $instance,
         group  => $instance,
     }
+
+    file { "${tomcat::params::home}/${instance}/logs":
+        ensure => directory,
+        owner  => $instance,
+        group  => $instance,
+    }
 }

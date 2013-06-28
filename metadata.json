@@ -15,7 +15,7 @@
     "manifests/cluster/jgroups.pp": "a4f8774c2e51a2ed35f2ee9f6f70b0b6",
     "manifests/cluster/lucene.pp": "0d87dece1c3140824b8b0d9cc85f257b",
     "manifests/init.pp": "6765531c7abdcd72ff2617306bbede53",
-    "manifests/instance.pp": "a3cbfebebc84b3f10345141cfa8f779a",
+    "manifests/instance.pp": "dc73a4420e2d2d12caaa8224a0f7d631",
     "manifests/instance/dependencies.pp": "7e700c232e884de47bb43dcca656235e",
     "manifests/instance/properties.pp": "c533427a7b2e23e871dc278393d8c454",
     "manifests/plugin.pp": "a08480f7f7ffc17a1134def5999556b2",
