@@ -61,11 +61,6 @@ define liferay::instance (
         value => $jndi_database,
     }
 
-    liferay::property { "${instance}:jdbc.default.liferay.pool.provider":
-        key   => 'jdbc.default.liferay.pool.provider',
-        value => 'tomcat',
-    }
-
     if (!defined(Tomcat::Jndi::Resource["${instance}:${jndi_database}"])) {
         tomcat::jndi::database::hsql { "${instance}-${jndi_database}":
             resource_name => $jndi_database,
