@@ -17,6 +17,7 @@ define liferay::instance::properties ($instance = $name) {
         "${tomcat::params::home}/${instance}/tomcat/lib/portlet-ext.properties",]:
         owner => $instance,
         group => $instance,
+        mode  => '0750',
         require => File["${tomcat::params::home}/${instance}/tomcat/lib"],
     }
 
