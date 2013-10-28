@@ -15,7 +15,7 @@ define liferay::property (
     $value) {
     include tomcat
 
-    concat::fragment { "${name}: ${key}=${value}":
+    concat::fragment { $name:
         target  => "${tomcat::params::home}/${instance}/tomcat/lib/${type}-ext.properties",
         order   => 01,
         content => "${key}=${value}\n",
