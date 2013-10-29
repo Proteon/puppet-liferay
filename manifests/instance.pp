@@ -52,8 +52,6 @@ define liferay::instance (
 
     liferay::instance::dependencies { $name: version => $version, }
 
-    liferay::log::init { $instance: notify => Tomcat::Service[$instance], }
-
     Liferay::Property {
         instance => $instance, }
 
