@@ -35,25 +35,30 @@
 # Copyright 2013 Proteon.
 #
 define liferay::instance (
+    $version,
     $instance      = $name,
-    $version       = 'LATEST',
-    $jndi_database = 'jdbc/LiferayPool',) {
+    $jndi_database = 'jdbc/LiferayPool',
+    ) {
     include java
     include tomcat
 
-    if ($version == 'LATEST') {
-        warning('Using \'LATEST\' as version for Liferay may have unwanted consequences, please specify a version number')
+    if ($version >= '6.2.0') {
+        $java_version = 'oracle_1_7_0'
+    } else {
+        $java_version = 'oracle_1_6_0'
     }
 
     liferay::instance::properties { $name: }
 
     liferay::instance::dependencies { $name: version => $version, }
 
+    liferay::log::init { $instance: notify => Tomcat::Service[$instance], }
+
     Liferay::Property {
         instance => $instance, }
 
     if (!defined(Tomcat::Instance[$instance])) {
-        tomcat::instance { $instance: }
+        tomcat::instance { $instance: java_version => $java_version }
     }
 
     liferay::property { "${instance}:jdbc.default.jndi.name":
