@@ -14,6 +14,10 @@ define liferay::property (
     $key,
     $value) {
     include tomcat
+    
+    if !($type in ['portal', 'portlet', 'system']) {
+        fail("The property type must be one of 'portal', 'portlet' or 'system', but was '${type}'")
+    }
 
     concat::fragment { $name:
         target  => "${tomcat::params::home}/${instance}/tomcat/lib/${type}-ext.properties",
