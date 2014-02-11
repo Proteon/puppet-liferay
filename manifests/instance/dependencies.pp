@@ -8,16 +8,21 @@
 #
 # Copyright 2013 Proteon.
 #
-define liferay::instance::dependencies ($instance = $name, $version) {
+define liferay::instance::dependencies (
+    $instance = $name,
+    $version
+) {
     Tomcat::Lib::Maven {
         instance => $instance, }
 
-    tomcat::lib::maven { "${instance}:support-tomcat-${version}":
-        lib        => "support-tomcat.jar",
-        instance   => $instance,
-        groupid    => 'com.liferay.portal',
-        artifactid => 'support-tomcat',
-        version    => $version,
+    if versioncmp($version, '6.1') >= 0 {
+        tomcat::lib::maven { "${instance}:support-tomcat-${version}":
+            lib        => "support-tomcat.jar",
+            instance   => $instance,
+            groupid    => 'com.liferay.portal',
+            artifactid => 'support-tomcat',
+            version    => $version,
+       }
     }
 
     tomcat::lib::maven { "${instance}:portal-service-${version}":
