@@ -71,13 +71,32 @@ define liferay::instance (
             url           => 'jdbc:hsqldb:data/hsql/lportal',
         }
     }
-
-    tomcat::webapp::maven { "${instance}:ROOT":
-        webapp     => 'ROOT',
-        instance   => $instance,
-        groupid    => 'com.liferay.portal',
-        artifactid => 'portal-web',
-        version    => $version,
+    
+    # Before 6.1 deploying with maven isn't really working to great
+    if versioncmp($version, '6.1') >= 0 {
+        tomcat::webapp::maven { "${instance}:ROOT":
+            webapp     => 'ROOT',
+            instance   => $instance,
+            groupid    => 'com.liferay.portal',
+            artifactid => 'portal-web',
+            version    => $version,
+        }
+    } else {
+        # just nick from sourceforge?
+        $webapp_filename = "liferay-portal-${version}.war"
+        $webapp_url = "http://downloads.sourceforge.net/project/lportal/Liferay%20Portal/${version}/${webapp_filename}"
+        exec { "Fetch liferay-portal-${version}.war for ${name}":
+            command => "/usr/bin/wget -O /usr/share/java/${webapp_filename} ${webapp_url}",
+            creates => "/usr/share/java/${webapp_filename}",
+            require => Class['tomcat'],
+        }
+        file { "${::tomcat::params::home}/${instance}/tomcat/webapps/ROOT.war":
+            ensure  => 'link',
+            target  => "/usr/share/java/${webapp_filename}",
+            force   => true,
+            require => Exec["Fetch liferay-portal-${version}.war for ${name}"],
+            before  => Tomcat::Service[$instance],
+        }
     }
 
     file { "${tomcat::params::home}/${instance}/deploy":
