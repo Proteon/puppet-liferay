@@ -36,9 +36,10 @@
 #
 define liferay::instance (
     $version,
+    $use_hsql      = false, 
     $instance      = $name,
     $jndi_database = 'jdbc/LiferayPool',
-    ) {
+) {
     include java
     include tomcat
 
@@ -64,7 +65,8 @@ define liferay::instance (
         value => $jndi_database,
     }
 
-    if (!defined(Tomcat::Jndi::Resource["${instance}:${jndi_database}"])) {
+    # Optionally use a hsql database, not recommended for production
+    if ($use_hsql) {
         tomcat::jndi::database::hsql { "${instance}-${jndi_database}":
             resource_name => $jndi_database,
             instance      => $instance,
