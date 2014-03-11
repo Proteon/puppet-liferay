@@ -40,7 +40,7 @@ define liferay::plugin (
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.war":
-        command     => "sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${target}.war ${tomcat::params::home}/${instance}/deploy/",
+        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${target}.war ${tomcat::params::home}/${instance}/deploy/",
         refreshonly => true,
         require     => File["${tomcat::params::home}/${instance}/deploy"],
     }
