@@ -21,7 +21,9 @@
 define liferay::plugin (
     $instance,
     $source,
-    $target = $name) {
+    $target = $name,
+    $extention = 'war',
+	) {
     include tomcat
 
     if (!defined(File["${tomcat::params::home}/${instance}/.plugins"])) {
@@ -32,15 +34,15 @@ define liferay::plugin (
         }
     }
 
-    file { "${tomcat::params::home}/${instance}/.plugins/${target}.war":
+    file { "${tomcat::params::home}/${instance}/.plugins/${target}.${extention}":
         source => $source,
         owner  => 'root',
         group  => 'root',
-        notify => Exec["${tomcat::params::home}/${instance}/deploy/${target}.war"],
+        notify => Exec["${tomcat::params::home}/${instance}/deploy/${target}.${extention}"],
     }
 
-    exec { "${tomcat::params::home}/${instance}/deploy/${target}.war":
-        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${target}.war ${tomcat::params::home}/${instance}/deploy/",
+    exec { "${tomcat::params::home}/${instance}/deploy/${target}.${extention}":
+        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${target}.${extention} ${tomcat::params::home}/${instance}/deploy/",
         refreshonly => true,
         require     => File["${tomcat::params::home}/${instance}/deploy"],
     }
