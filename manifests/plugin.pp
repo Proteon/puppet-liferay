@@ -34,7 +34,9 @@ define liferay::plugin (
         }
     }
 
-    file { "${tomcat::params::home}/${instance}/.plugins/${target}.${extention}":
+   $_filename = "${target}.${extention}"
+
+    file { "${tomcat::params::home}/${instance}/.plugins/$_filename":
         source => $source,
         owner  => 'root',
         group  => 'root',
