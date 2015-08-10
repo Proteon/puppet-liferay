@@ -20,12 +20,15 @@
 #
 define liferay::plugin (
     $instance,
-    $source,
+    $source = undef,
+    $content = undef,
     $target = $name,
     $extention = 'war',
 	) {
     include tomcat
-
+    if( $source and $content){
+        fail('can\'t specify source and content for a file')
+    }
     if (!defined(File["${tomcat::params::home}/${instance}/.plugins"])) {
         file { "${tomcat::params::home}/${instance}/.plugins":
             ensure => directory,
@@ -38,6 +41,7 @@ define liferay::plugin (
 
     file { "${tomcat::params::home}/${instance}/.plugins/$_filename":
         source => $source,
+        content => $content,
         owner  => 'root',
         group  => 'root',
         notify => Exec["${tomcat::params::home}/${instance}/deploy/${target}.${extention}"],
