@@ -19,7 +19,13 @@
 #
 # Copyright 2013 Proteon.
 #
-define liferay::plugin::maven ($instance, $groupid, $artifactid, $version) {
+define liferay::plugin::maven (
+    $instance, 
+    $groupid, 
+    $artifactid, 
+    $version,
+    $postfix = '',
+) {
     include ::maven
     include ::tomcat
 
@@ -31,17 +37,17 @@ define liferay::plugin::maven ($instance, $groupid, $artifactid, $version) {
         }
     }
 
-    maven { "${tomcat::params::home}/${instance}/.plugins/${artifactid}-${version}.war":
+    maven { "${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.war":
         groupid    => $groupid,
         artifactid => $artifactid,
         version    => $version,
         packaging  => 'war',
         require    => [Liferay::Instance[$instance], Package['maven'], File["${tomcat::params::home}/${instance}/.plugins"],],
-        notify     => Exec["${tomcat::params::home}/${instance}/deploy/${artifactid}-${version}.war"],
+        notify     => Exec["${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}-${version}.war"],
     }
 
-    exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}-${version}.war":
-        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}-${version}.war ${tomcat::params::home}/${instance}/deploy/",
+    exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}-${version}.war":
+        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.war ${tomcat::params::home}/${instance}/deploy/",
         refreshonly => true,
     }
 }
