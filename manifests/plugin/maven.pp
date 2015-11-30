@@ -39,7 +39,7 @@ define liferay::plugin::maven (
     }
 
     if $show_version {
-        $_version = '-${version}'
+        $_version = "-${version}"
     } else {
         $_version = ''
     }
