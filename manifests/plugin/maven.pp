@@ -44,7 +44,7 @@ define liferay::plugin::maven (
         $_version = ''
     }
 
-    maven { "${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}${_version}.war":
+    maven { "${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.war":
         groupid    => $groupid,
         artifactid => $artifactid,
         version    => $version,
@@ -54,7 +54,7 @@ define liferay::plugin::maven (
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.war":
-        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}${_version}.war ${tomcat::params::home}/${instance}/deploy/",
+        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.war ${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.war",
         refreshonly => true,
     }
 }
