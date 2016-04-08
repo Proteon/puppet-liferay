@@ -18,7 +18,7 @@ define liferay::instance::dependencies7 ($instance = $name, $version) {
     instance   => $instance,
     groupid    => 'com.liferay.portal',
     artifactid => 'com.liferay.portal.kernel',
-    version    => 2.3.0,
+    version    => '2.3.0',
   }
 
   tomcat::lib::maven { "${instance}:activation-1.1.1":
@@ -38,17 +38,17 @@ define liferay::instance::dependencies7 ($instance = $name, $version) {
   tomcat::lib::maven { "${instance}:com.liferay.osgi.service.tracker.collections-2.0.1":
     lib        => "com.liferay.osgi.service.tracker.collections.jar",
     instance   => $instance,
-    groupid    => 'com.liferay.portal',
+    groupid    => 'com.liferay',
     artifactid => 'com.liferay.osgi.service.tracker.collections',
-    version    => 2.0.1,
+    version    => '2.0.1',
   }
 
   tomcat::lib::maven { "${instance}:com.liferay.registry.api-1.0.3":
     lib        => "com.liferay.registry.api.jar",
     instance   => $instance,
-    groupid    => 'com.liferay.portal',
+    groupid    => 'com.liferay',
     artifactid => 'com.liferay.registry.api',
-    version    => 1.0.3,
+    version    => '1.0.3',
   }
 
   tomcat::lib::maven { "${instance}:jms-1.1-rev-1":

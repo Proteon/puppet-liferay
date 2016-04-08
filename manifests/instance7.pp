@@ -44,7 +44,7 @@ define liferay::instance7 (
   $osgi_console_port = '11311',
   $osgi_dir = '/data/osgi',
 ) {
-   if( !versioncmp($version, '7.0') >= 0 {
+   if ! (versioncmp($version, '7.0') >= 0 ) {
     fail("unsupported version for liferay 7 for ${name}: ${version}")
   }
   include java
@@ -79,13 +79,13 @@ define liferay::instance7 (
     value => "localhost:${osgi_console_port}",
   }
 
-  file { "${osgi_dir}":
-    ensure => present,
-    owner  => $instance,
-    group  => $instance,
-    source => "puppet:///modules/liferay/osgi/${version}/osgi",
-    recurse => true,
-  }
+  #file { "${osgi_dir}":
+  #  ensure => present,
+  #  owner  => $instance,
+  #  group  => $instance,
+  #  source => "puppet:///modules/liferay/osgi/${version}/osgi",
+  #  recurse => true,
+  #}
 
 ##manually added war to maven repo..
   tomcat::webapp::maven { "${instance}:ROOT":
