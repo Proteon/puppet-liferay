@@ -42,12 +42,12 @@ define liferay::instance7 (
   $instance = $name,
   $jndi_database = 'jdbc/LiferayPool',
   $osgi_console_port = '11311',
-  $osgi_dir = '/data/osgi',
+  $osgi_dir = '/osgi',
 ) {
    if ! (versioncmp($version, '7.0') >= 0 ) {
     fail("unsupported version for liferay 7 for ${name}: ${version}")
   }
-  include java
+#  include java
   include tomcat
   $_osgi_fs_dir = "${tomcat::params::home}/${instance}${osgi_dir}"
   $_osgi_dir_prop = "\${liferay.home}${osgi_dir}"
@@ -79,13 +79,13 @@ define liferay::instance7 (
     value => "localhost:${osgi_console_port}",
   }
 
-  #file { "${osgi_dir}":
-  #  ensure => present,
-  #  owner  => $instance,
-  #  group  => $instance,
-  #  source => "puppet:///modules/liferay/osgi/${version}/osgi",
-  #  recurse => true,
-  #}
+  file { "${_osgi_fs_dir}":
+    ensure => present,
+    owner  => $instance,
+    group  => $instance,
+    source => "puppet:///modules/liferay/osgi/${version}/osgi",
+    recurse => true,
+  }
 
 ##manually added war to maven repo..
   tomcat::webapp::maven { "${instance}:ROOT":
