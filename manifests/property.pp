@@ -12,7 +12,7 @@ define liferay::property (
     $instance,
     $web_id = undef,
     $type = 'portal',
-    $key,
+    $key = $name,
     $value
 ) {
     include tomcat
