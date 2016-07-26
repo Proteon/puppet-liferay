@@ -45,7 +45,6 @@ define liferay::instance (
   if versioncmp($version, '7.0') >= 0 {
     liferay::instance7 { $name :
       version           => $version,
-      use_hsql          => $use_hsql,
       jndi_database     => $jndi_database,
       osgi_console_port => $osgi_console_port,
       osgi_dir          => $osgi_dir,

@@ -38,7 +38,6 @@
 #
 define liferay::instance7 (
   $version,
-  $use_hsql = false,
   $instance = $name,
   $jndi_database = 'jdbc/LiferayPool',
   $osgi_console_port = '11311',
@@ -51,12 +50,11 @@ define liferay::instance7 (
   include tomcat
   $_osgi_fs_dir = "${tomcat::params::home}/${instance}${osgi_dir}"
   $_osgi_dir_prop = "\${liferay.home}${osgi_dir}"
+  $_tomcat_lib_ext = "${tomcat::params::home}/${instance}/tomcat/lib/ext"
 
   $java_version = 'oracle_1_8_0'
 
   liferay::instance::properties { $name: }
-
-  liferay::instance::dependencies7 { $name: version => $version, }
 
   Liferay::Property {
     instance => $instance, }
@@ -79,12 +77,38 @@ define liferay::instance7 (
     value => "localhost:${osgi_console_port}",
   }
 
-  file { "${_osgi_fs_dir}":
-    ensure => present,
-    owner  => $instance,
-    group  => $instance,
-    source => "puppet:///modules/liferay/osgi/${version}/osgi",
-    recurse => true,
+  # Install liferay 7 dependencies
+  # manually created and added zip file to maven repo
+  maven { "/tmp/dependencies-${instance}.zip":
+    groupid    => 'com.liferay.dependencies',
+    artifactid => 'liferay-dependencies',
+    version    => $version,
+    packaging  => 'zip',
+    require    => [Package['maven']],
+    notify     => Exec["install-liferay-dependencies-${instance}"],
+  }
+
+  exec { "install-liferay-dependencies-${instance}":
+    command => "/usr/bin/unzip /tmp/dependencies-${instance}.zip -d ${_tomcat_lib_ext} && chown ${instance}:${instance} -R ${_tomcat_lib_ext}",
+    creates => $_tomcat_lib_ext,
+    require  => Tomcat::Instance["${instance}"],
+  }
+
+  # install liferay 7 osgi bundles
+  # manually created and added zip file to maven repo
+  maven { "/tmp/liferay-osgi-bundle.zip":
+    groupid    => 'com.liferay.osgi',
+    artifactid => 'liferay-osgi',
+    version    => $version,
+    packaging  => 'zip',
+    require    => [Package['maven']],
+    notify     => Exec["install-osgi-bundles-${instance}"],
+  }
+
+  exec { "install-osgi-bundles-${instance}":
+    command  => "/usr/bin/unzip /tmp/liferay-osgi-bundle.zip -d ${_osgi_fs_dir} && chown ${instance}:${instance} -R ${_osgi_fs_dir}",
+    creates  => "${_osgi_fs_dir}/core",
+    require  => Tomcat::Instance["${instance}"],
   }
 
 ##manually added war to maven repo..
@@ -94,15 +118,6 @@ define liferay::instance7 (
     groupid    => 'com.liferay.portal',
     artifactid => 'portal-web',
     version    => $version,
-  }
-
-  # Optionally use a hsql database, not recommended for production
-  if ($use_hsql) {
-    tomcat::jndi::database::hsql { "${instance}-${jndi_database}":
-      resource_name => $jndi_database,
-      instance      => $instance,
-      url           => 'jdbc:hsqldb:data/hsql/lportal',
-    }
   }
 
   file { "${tomcat::params::home}/${instance}/deploy":
