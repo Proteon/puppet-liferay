@@ -79,7 +79,7 @@ define liferay::instance7 (
 
   # Install liferay 7 dependencies
   # manually created and added zip file to maven repo
-  maven { "/tmp/dependencies-${instance}.zip":
+  maven { "/tmp/dependencies-${instance}-${version}.zip":
     groupid    => 'com.liferay.dependencies',
     artifactid => 'liferay-dependencies',
     version    => $version,
@@ -89,14 +89,14 @@ define liferay::instance7 (
   }
 
   exec { "install-liferay-dependencies-${instance}":
-    command => "/usr/bin/unzip /tmp/dependencies-${instance}.zip -d ${_tomcat_lib_ext} && chown ${instance}:${instance} -R ${_tomcat_lib_ext}",
+    command => "/usr/bin/unzip -o /tmp/dependencies-${instance}-${version}.zip -d ${_tomcat_lib_ext} && chown ${instance}:${instance} -R ${_tomcat_lib_ext}",
     creates => $_tomcat_lib_ext,
-    require  => Tomcat::Instance["${instance}"],
+    require => Tomcat::Instance["${instance}"],
   }
 
   # install liferay 7 osgi bundles
   # manually created and added zip file to maven repo
-  maven { "/tmp/liferay-osgi-bundle.zip":
+  maven { "/tmp/liferay-osgi-bundle-${instance}-${version}.zip":
     groupid    => 'com.liferay.osgi',
     artifactid => 'liferay-osgi',
     version    => $version,
@@ -106,7 +106,7 @@ define liferay::instance7 (
   }
 
   exec { "install-osgi-bundles-${instance}":
-    command  => "/usr/bin/unzip /tmp/liferay-osgi-bundle.zip -d ${_osgi_fs_dir} && chown ${instance}:${instance} -R ${_osgi_fs_dir}",
+    command  => "/usr/bin/unzip -o /tmp/liferay-osgi-bundle-${instance}-${version} -d ${_osgi_fs_dir} && chown ${instance}:${instance} -R ${_osgi_fs_dir}",
     creates  => "${_osgi_fs_dir}/core",
     require  => Tomcat::Instance["${instance}"],
   }

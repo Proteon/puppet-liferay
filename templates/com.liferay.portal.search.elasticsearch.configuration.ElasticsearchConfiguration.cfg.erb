@@ -1,0 +1,26 @@
+##
+## To apply the configuration, place this file in the Liferay installation's osgi/modules folder. Make sure it is named com.liferay.portal.search.elasticsearch.configuration.ElasticsearchConfiguration.cfg.
+##
+
+operationMode=REMOTE
+clientTransportIgnoreClusterName=true
+indexNamePrefix=<%= @es_index_name_prefix %>
+httpCORSConfigurations=
+additionalConfigurations=
+httpCORSAllowOrigin=/https?://localhost(:[0-9]+)?/
+networkBindHost=<%= @es_network_bind_host %>
+transportTcpPort=<%= @es_transport_port %>
+bootstrapMlockAll=true
+networkPublishHost=
+clientTransportSniff=true
+additionalIndexConfigurations=
+retryOnConflict=5
+httpCORSEnabled=true
+clientTransportNodesSamplerInterval=5s
+additionalTypeMappings=
+logExceptionsOnly=true
+httpEnabled=true
+networkHost=<%= @es_network_host %>
+transportAddresses=<%= @es_transport_address %>
+discoveryZenPingUnicastHostsPort=9300-9400
+clusterName=<%= @es_clustername %>
