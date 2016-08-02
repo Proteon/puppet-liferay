@@ -1,4 +1,4 @@
-#
+# sets the configuration for the elasticsearch osgi module in liferay 7
 define liferay::instance7::elastic (
   $instance,
   $es_network_bind_host = '127.0.0.1',
