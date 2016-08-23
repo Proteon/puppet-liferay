@@ -26,6 +26,7 @@ define liferay::plugin::maven (
     $version,
     $show_version = true,
     $postfix = '',
+    $extension = 'war',
 ) {
     include ::maven
     include ::tomcat
@@ -44,17 +45,17 @@ define liferay::plugin::maven (
         $_version = ''
     }
 
-    maven { "${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.war":
+    maven { "${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.${extension}":
         groupid    => $groupid,
         artifactid => $artifactid,
         version    => $version,
-        packaging  => 'war',
+        packaging  => $extension,
         require    => [Liferay::Instance[$instance], Package['maven'], File["${tomcat::params::home}/${instance}/.plugins"],],
-        notify     => Exec["${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.war"],
+        notify     => Exec["${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.${extension}"],
     }
 
-    exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.war":
-        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.war ${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.war",
+    exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.${extension}":
+        command     => "/usr/bin/sudo -u ${instance} cp ${tomcat::params::home}/${instance}/.plugins/${artifactid}${postfix}-${version}.${extension} ${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.${extension}",
         refreshonly => true,
     }
 }
