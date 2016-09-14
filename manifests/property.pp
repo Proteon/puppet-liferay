@@ -31,7 +31,7 @@ define liferay::property (
         ensure_resource('concat', "${tomcat::params::home}/${instance}/tomcat/lib/${type}-${_web_id}.properties", {
             owner => $instance,
             group => $instance,
-            mode  => '0750',
+            mode  => '0640',
             require => File["${tomcat::params::home}/${instance}/tomcat/lib"],
         })
 
