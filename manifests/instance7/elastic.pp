@@ -7,6 +7,7 @@ define liferay::instance7::elastic (
   $es_transport_address = '127.0.0.1:9300',
   $es_clustername = 'elasticsearch',
   $es_index_name_prefix = "${instance}-",
+  $mode = 'REMOTE',
 ) {
     file { '/opt/tomcat/sites/liferay/osgi/configs/com.liferay.portal.search.elasticsearch.configuration.ElasticsearchConfiguration.cfg':
         owner   => $instance,

@@ -2,7 +2,7 @@
 ## To apply the configuration, place this file in the Liferay installation's osgi/modules folder. Make sure it is named com.liferay.portal.search.elasticsearch.configuration.ElasticsearchConfiguration.cfg.
 ##
 
-operationMode=REMOTE
+operationMode=<%= @mode %>
 clientTransportIgnoreClusterName=true
 indexNamePrefix=<%= @es_index_name_prefix %>
 httpCORSConfigurations=
