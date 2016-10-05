@@ -48,7 +48,8 @@ define liferay::plugin (
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.${extention}":
-        command     => "/usr/bin/sudo -u ${instance} cp '${tomcat::params::home}/${instance}/.plugins/${target}.${extention}' ${tomcat::params::home}/${instance}/deploy/",
+        command     => "/bin/cp '${tomcat::params::home}/${instance}/.plugins/${target}.${extention}' ${tomcat::params::home}/${instance}/deploy/;
+                        /bin/chown ${instance}: ${tomcat::params::home}/${instance}/deploy/${target}.${extention}",
         refreshonly => true,
         require     => File["${tomcat::params::home}/${instance}/deploy"],
     }
