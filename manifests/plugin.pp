@@ -20,10 +20,10 @@
 #
 define liferay::plugin (
     $instance,
-    $source = undef,
-    $content = undef,
-    $target = $name,
-    $extention = 'war',
+    $source     = undef,
+    $content    = undef,
+    $target     = $name,
+    $extention  = 'war',
 	) {
     include tomcat
     if( $source and $content){
@@ -31,20 +31,21 @@ define liferay::plugin (
     }
     if (!defined(File["${tomcat::params::home}/${instance}/.plugins"])) {
         file { "${tomcat::params::home}/${instance}/.plugins":
-            ensure => directory,
-            owner  => 'root',
-            group  => 'root',
+            ensure  => directory,
+            owner   => 'root',
+            group   => 'root',
         }
     }
 
    $_filename = "${target}.${extention}"
 
     file { "${tomcat::params::home}/${instance}/.plugins/$_filename":
-        source => $source,
-        content => $content,
-        owner  => 'root',
-        group  => 'root',
-        notify => Exec["${tomcat::params::home}/${instance}/deploy/${target}.${extention}"],
+        source      => $source,
+        content     => $content,
+        owner       => 'root',
+        group       => 'root',
+        mode        => '0644',
+        notify      => Exec["${tomcat::params::home}/${instance}/deploy/${target}.${extention}"],
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${target}.${extention}":
