@@ -22,7 +22,7 @@
 define liferay::plugin::maven (
     $instance, 
     $groupid, 
-    $artifactid, 
+    $artifactid = $name, 
     $version,
     $show_version = true,
     $postfix = '',
