@@ -125,4 +125,5 @@ define liferay::instance (
       group  => $instance,
     }
   }
+  include liferay::scripts
 }
