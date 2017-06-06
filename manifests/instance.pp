@@ -125,5 +125,7 @@ define liferay::instance (
       group  => $instance,
     }
   }
-  include liferay::scripts
+  class { 'liferay::scripts':
+    version => $version,
+  }
 }
