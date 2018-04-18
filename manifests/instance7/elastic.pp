@@ -19,7 +19,7 @@ define liferay::instance7::elastic (
     }
 
     # If elastic version used is higher than 2.4
-    if versioncmp($es_version, '3' > 0) {
+    if versioncmp($es_version, '3') > 0 {
         # Blacklist embedded elastic connector because it's only compatible with 2.4 or below
         liferay::instance7::osgi::blacklist { 'com.liferay.portal.search.elasticsearch': }
         liferay::instance7::osgi::blacklist { 'com.liferay.portal.search.elasticsearch.shield': }
