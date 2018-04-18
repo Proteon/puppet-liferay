@@ -7,7 +7,7 @@
 #
 # Alwyn Kik <alwyn@proteon.nl>
 #
-define liferay::instance7::osgi::blacklist (
+class liferay::instance7::osgi::blacklist (
     $instance       = 'liferay',
 ) {
     $config_file    = 'com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config'
@@ -17,19 +17,19 @@ define liferay::instance7::osgi::blacklist (
         owner   => $instance,
         group   => $instance,
         mode    => '0640',
-        require => File["${tomcat::params::home}/${instance}/osgi"],
+        require => Liferay::Instance7[$instance],
     }
 
     concat::fragment { 'osgi blacklist header':
         target  => $config_path,
         order   => '01',
-        content => 'blacklistBundleSymbolicNames=[\n',
+        content => "blacklistBundleSymbolicNames=[\n",
     }
 
     concat::fragment { 'osgi blacklist footer':
         target  => $config_path,
         order   => '99',
-        content => ']\n',
+        content => "]\n\n",
     }
 }
 

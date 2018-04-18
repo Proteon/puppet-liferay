@@ -21,15 +21,17 @@ define liferay::instance7::elastic (
     # If elastic version used is higher than 2.4
     if versioncmp($es_version, '3') > 0 {
         # Blacklist embedded elastic connector because it's only compatible with 2.4 or below
-        liferay::instance7::osgi::blacklist { 'com.liferay.portal.search.elasticsearch': }
-        liferay::instance7::osgi::blacklist { 'com.liferay.portal.search.elasticsearch.shield': }
-        liferay::instance7::osgi::blacklist { 'com.liferay.portal.search.elasticsearch.marvel.web': }
+        liferay::instance7::osgi::blacklist::entry { 'com.liferay.portal.search.elasticsearch': }
+        liferay::instance7::osgi::blacklist::entry { 'com.liferay.portal.search.elasticsearch.shield': }
+        liferay::instance7::osgi::blacklist::entry { 'com.liferay.portal.search.elasticsearch.marvel.web': }
 
         liferay::plugin::maven { 'elastic6-connector':
-            instance    => $instance,
-            groupid     => 'com.liferay',
-            version     => '1.0.0',
-            extension   => 'lpkg',
+            instance        => $instance,
+            groupid         => 'com.liferay',
+            version         => '1.0.0',
+            show_version    => false,
+            extension       => 'lpkg',
+            require         => Class['liferay::instance7::osgi::blacklist'],
         }
     }
 }

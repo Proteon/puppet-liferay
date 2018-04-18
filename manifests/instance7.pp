@@ -111,7 +111,7 @@ define liferay::instance7 (
     require  => Tomcat::Instance["${instance}"],
   }
 
-##manually added war to maven repo..
+  ##manually added war to maven repo..
   tomcat::webapp::maven { "${instance}:ROOT":
     webapp     => 'ROOT',
     instance   => $instance,
@@ -130,6 +130,10 @@ define liferay::instance7 (
     ensure => directory,
     owner  => $instance,
     group  => $instance,
+  }
+
+  class { 'liferay::instance7::osgi::blacklist':
+    instance    => $instance,
   }
 }
 
