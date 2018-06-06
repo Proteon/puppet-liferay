@@ -133,10 +133,13 @@ define liferay::instance (
 
   if $logrotate {
     ensure_packages(['logrotate'])
+    $logrotate_ensure   = 'present'
+  } else {
+    $logrotate_ensure   = 'absent'
   }
 
   file { "/etc/logrotate.d/liferay.${instance}":
-    ensure      => present,
+    ensure      => $logrotate_ensure,
     owner       => 'root',
     group       => 'root',
     mode        => '0644',
