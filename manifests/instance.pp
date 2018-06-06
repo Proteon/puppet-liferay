@@ -42,6 +42,7 @@ define liferay::instance (
   $osgi_console_port = '11311',
   $osgi_dir = '/data/osgi',
   $logrotate = false,
+  $logrotate_days = 32,
 ) {
   if versioncmp($version, '7.0') >= 0 {
     liferay::instance7 { $name :
@@ -132,11 +133,6 @@ define liferay::instance (
 
   if $logrotate {
     ensure_packages(['logrotate'])
-    if is_numeric($logrotate) {
-      $rotate_number    = $logrotate
-    } else {
-      $rotate_number    = 32
-    }
   }
 
   file { "/etc/logrotate.d/liferay.${instance}":

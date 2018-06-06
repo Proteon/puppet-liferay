@@ -1,7 +1,7 @@
 # Managed by puppet
 /opt/tomcat/sites/<%= @instance %>/logs/liferay.*.log {
     daily
-    rotate <%= @rotate_number %>
+    rotate <%= @logrotate_days %>
     compress
     delaycompress
     nomissingok
@@ -9,7 +9,7 @@
 
 /opt/tomcat/sites/<%= @instance %>/logs/liferay.*.xml {
     daily
-    rotate <%= @rotate_number %>
+    rotate <%= @logrotate_days %>
     compress
     delaycompress
     nomissingok
