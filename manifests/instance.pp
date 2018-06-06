@@ -41,6 +41,8 @@ define liferay::instance (
   $jndi_database = 'jdbc/LiferayPool',
   $osgi_console_port = '11311',
   $osgi_dir = '/data/osgi',
+  $logrotate = false,
+  $logrotate_days = 32,
 ) {
   if versioncmp($version, '7.0') >= 0 {
     liferay::instance7 { $name :
@@ -128,4 +130,21 @@ define liferay::instance (
   class { 'liferay::scripts':
     version => $version,
   }
+
+  if $logrotate {
+    ensure_packages(['logrotate'])
+    $logrotate_ensure   = 'present'
+  } else {
+    $logrotate_ensure   = 'absent'
+  }
+
+  file { "/etc/logrotate.d/liferay.${instance}":
+    ensure      => $logrotate_ensure,
+    owner       => 'root',
+    group       => 'root',
+    mode        => '0644',
+    content     => template('liferay/logrotate.erb'),
+    require     => Package['logrotate'],
+  }
 }
+
