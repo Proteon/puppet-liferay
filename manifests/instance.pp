@@ -135,7 +135,7 @@ define liferay::instance (
     if is_numeric($logrotate) {
       $rotate_number    = $logrotate
     } else {
-      rotate_number     = 32,
+      rotate_number     = 32
     }
   }
 
