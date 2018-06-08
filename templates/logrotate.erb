@@ -15,3 +15,9 @@
     nomissingok
 }
 
+/opt/tomcat/sites/<%= @instance %>/logs/lcs-portlet.*.log.zip {
+    daily
+    rotate <%= @logrotate_days %>
+    nomissingok
+}
+
