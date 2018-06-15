@@ -38,7 +38,7 @@ define liferay::instance (
   $version, 
   $use_hsql = false, 
   $instance = $name, 
-  $jndi_database = 'jdbc/LiferayPool',
+  $jndi_database = undef,
   $osgi_console_port = '11311',
   $osgi_dir = '/data/osgi',
   $logrotate = false,
@@ -56,9 +56,9 @@ define liferay::instance (
   include java
   include tomcat
   if ($version >= '6.2.0') {
-    $java_version = 'oracle_1_7_0'
+    $java_version = 'oracle_1_8_0'
   } else {
-    $java_version = 'oracle_1_6_0'
+    $java_version = 'oracle_1_7_0'
   }
 
   liferay::instance::properties { $name: }
@@ -72,9 +72,11 @@ define liferay::instance (
     tomcat::instance { $instance: java_version => $java_version }
   }
 
-  liferay::property { "${instance}:jdbc.default.jndi.name":
-    key   => 'jdbc.default.jndi.name',
-    value => $jndi_database,
+  if ($jndi_database) {
+    liferay::property { "${instance}:jdbc.default.jndi.name":
+      key   => 'jdbc.default.jndi.name',
+      value => $jndi_database,
+    }
   }
 
   # Optionally use a hsql database, not recommended for production
