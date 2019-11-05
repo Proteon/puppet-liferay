@@ -27,6 +27,7 @@ define liferay::plugin::maven (
     $show_version = true,
     $postfix = '',
     $extension = 'war',
+    $options = undef,
 ) {
     include ::maven
     include ::tomcat
@@ -52,6 +53,7 @@ define liferay::plugin::maven (
         packaging  => $extension,
         require    => [Liferay::Instance[$instance], Package['maven'], File["${tomcat::params::home}/${instance}/.plugins"],],
         notify     => Exec["${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.${extension}"],
+	options	   => $options,
     }
 
     exec { "${tomcat::params::home}/${instance}/deploy/${artifactid}${postfix}${_version}.${extension}":
